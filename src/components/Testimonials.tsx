@@ -2,7 +2,7 @@ import React from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Testimonials: React.FC = () => {
-  const { isVisible, isActive } = useScrollAnimation('testimonials-section');
+  const { isVisible } = useScrollAnimation('testimonials-section');
   const testimonials = [
     {
       name: "María Jesús Romero Ponce",

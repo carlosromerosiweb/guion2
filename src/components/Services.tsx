@@ -1,6 +1,28 @@
 import React from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, cta, icon }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+      <div className="text-emerald-500 mb-6">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-bold text-slate-800 mb-4">{title}</h3>
+      <p className="text-slate-600 mb-6">{description}</p>
+      <button className="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors font-semibold">
+        {cta}
+      </button>
+    </div>
+  );
+};
+
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  cta: string;
+  icon: React.ReactNode;
+}
+
 const Services: React.FC = () => {
   const { isVisible, isMostVisible } = useScrollAnimation('services-section');
 
@@ -60,7 +82,7 @@ const Services: React.FC = () => {
             Servicios gratuitos que Puedes Obtener con tu Bono Digital
           </h2>
           <p className={`text-xl text-slate-100 ${
-            isVisible ? 'animate-fade-in-up-delayed' : 'opacity-0'
+            isVisible ? 'animate-slide-left' : 'opacity-0'
           }`}>
             Con tu Bono Digital podrás disfrutar de los siguientes servicios completamente gratis para tu negocio:
           </p>
@@ -70,7 +92,9 @@ const Services: React.FC = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              className={`bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 ${
+                isVisible ? 'animate-slide-right' : 'opacity-0'
+              }`}
             >
               <div className="flex items-center mb-4">
                 {service.icon}

@@ -1,38 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Hero: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px'
-      }
-    );
-
-    const element = document.getElementById('hero-section');
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
+  const { isVisible } = useScrollAnimation('hero-section');
 
   const handleCTAClick = () => {
-    // Aquí irá la lógica para ir al formulario del bloque 7
-    console.log('Navegando al formulario...');
+    const formSection = document.getElementById('form-section');
+    if (formSection) {
+      const yOffset = -80; // Altura de la barra de navegación
+      const y = formSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   return (
