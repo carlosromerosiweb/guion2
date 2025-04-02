@@ -12,15 +12,6 @@ const Navbar: React.FC = () => {
     setIsOpen(false);
   };
 
-  const menuItems = [
-    { name: 'Inicio', href: '#hero-section' },
-    { name: 'Beneficios', href: '#benefits-section' },
-    { name: 'Servicios', href: '#services-section' },
-    { name: 'Testimonios', href: '#testimonials-section' },
-    { name: 'Novedades', href: '#news-section' },
-    { name: 'Contacto', href: '#urgent-call-section' },
-  ];
-
   return (
     <nav className="fixed w-full bg-white shadow-md z-50">
       <div className="container mx-auto px-4">

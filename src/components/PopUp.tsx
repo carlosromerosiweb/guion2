@@ -105,8 +105,8 @@ const PopUp: React.FC<PopUpProps> = ({ onShow, onClose, onPopUpShow }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 pt-8">
-      <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl transform transition-all duration-300 scale-100 animate-fade-in border border-emerald-400/20">
+    <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 pt-8 transition-opacity duration-300 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl transform transition-all duration-500 ease-in-out ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} border border-emerald-400/20`}>
         <div className="text-center">
           <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">
             ¿Quieres más información sobre el <span className="text-amber-300 drop-shadow-md">Bono Digital</span>?
@@ -115,13 +115,21 @@ const PopUp: React.FC<PopUpProps> = ({ onShow, onClose, onPopUpShow }) => {
             Déjanos tu número y te llamamos gratis para explicarte cómo aprovechar el Bono Digital.
           </p>
           <div className="flex flex-col gap-4">
-            <button
-              onClick={handleCallMe}
+            <button 
+              onClick={() => {
+                const urgentCallSection = document.getElementById('urgent-call-section');
+                if (urgentCallSection) {
+                  const yOffset = -80; // Altura de la barra de navegación
+                  const y = urgentCallSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+                handleClose();
+              }}
               className="bg-white text-emerald-600 px-8 py-4 rounded-full text-xl font-bold hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 active:translate-y-0 border border-emerald-200"
             >
               ¡Te llamamos Gratis!
             </button>
-            <button
+            <button 
               onClick={handleClose}
               className="text-white hover:text-emerald-100 font-medium transition-colors hover:underline"
             >
